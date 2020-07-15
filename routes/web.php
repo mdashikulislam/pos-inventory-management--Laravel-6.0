@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+//Backend Route
+
+Route::prefix('users')->namespace('Backend')->group(function (){
+    Route::get('/view','UserController@view')->name('users.view');
+});

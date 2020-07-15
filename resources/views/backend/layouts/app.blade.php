@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{asset('backend/plugins/daterangepicker/daterangepicker.css')}}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('backend/plugins/summernote/summernote-bs4.min.css')}}">
+    @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -38,7 +39,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
+                <a href="{{route('home')}}" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contact</a>
@@ -83,7 +84,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
+        <a href="{{route('home')}}" class="brand-link">
             <img src="{{asset('backend/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">POS</span>
         </a>
@@ -161,8 +162,9 @@
 <!-- AdminLTE App -->
 <script src="{{asset('backend/dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('backend/dist/js/pages/dashboard.js')}}"></script>
+{{--<script src="{{asset('backend/dist/js/pages/dashboard.js')}}"></script>--}}
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('backend/dist/js/demo.js')}}"></script>
+@yield('js')
 </body>
 </html>
