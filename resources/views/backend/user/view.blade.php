@@ -32,20 +32,21 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3>
-                                    <i class="fas fa-users mr-1"></i>
+                                    <i class="fas fa-list mr-1"></i>
                                     Users List
-                                    <a href="#" class="btn btn-success float-right"> <i class="fas fa-plus-circle fa-fw"></i>Add user</a>
+                                    <a href="{{route('user.add')}}" class="btn btn-success float-right"> <i class="fas fa-plus-circle fa-fw"></i>Add user</a>
                                 </h3>
 
                             </div><!-- /.card-header -->
                             <div class="card-body">
+                                @include('message')
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>SL</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Create At</th>
+                                        <th>User Type</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -55,10 +56,10 @@
                                             <td>@if($loop->index + 1 <10){{'0'.($loop->index+1)}}@endif @if($loop->index + 1 > 9){{($loop->index+1)}}@endif</td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
-                                            <td> {{$user->created_at}}</td>
+                                            <td> {{$user->usertype}}</td>
                                             <td>
-                                                <a href="" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                                <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                <a title="Edit" href="" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                                <a title="Delete" href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -68,7 +69,7 @@
                                         <th>SL</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Create At</th>
+                                        <th>User Type</th>
                                         <th>Action</th>
                                     </tr>
                                     </tfoot>
@@ -99,7 +100,6 @@
             $("#example1").DataTable({
                 "responsive": true,
                 "autoWidth": false,
-
             });
         });
     </script>

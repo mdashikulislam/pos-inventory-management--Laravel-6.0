@@ -20,6 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 //Backend Route
 
-Route::prefix('users')->namespace('Backend')->group(function (){
+Route::prefix('user')->namespace('Backend')->middleware('auth')->group(function (){
     Route::get('/view','UserController@view')->name('users.view');
+    Route::get('/add','UserController@adduser')->name('user.add');
+    Route::post('/store','UserController@store')->name('user.store');
 });
