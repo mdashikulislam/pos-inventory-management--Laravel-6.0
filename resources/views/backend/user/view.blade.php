@@ -39,7 +39,7 @@
 
                             </div><!-- /.card-header -->
                             <div class="card-body">
-                                @include('message')
+{{--                                @include('message')--}}
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
@@ -58,8 +58,8 @@
                                             <td>{{$user->email}}</td>
                                             <td> {{$user->usertype}}</td>
                                             <td>
-                                                <a title="Edit" href="" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                                <a title="Delete" href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                <a title="Edit" href="{{route('user.edit',['id'=>$user->id])}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                                <a title="Delete" href="{{route('user.delete',['id'=>$user->id])}}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -94,6 +94,8 @@
 @section('js')
     <script src="{{asset('/backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('backend//plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 
     <script>
         $(function () {
@@ -103,5 +105,30 @@
             });
         });
     </script>
-
+    <script type="text/javascript">
+        $(function () {
+           $(document).on('click','#delete',function (e) {
+               e.preventDefault();
+               var link = $(this).attr('href');
+               Swal.fire({
+                   title: 'Are you sure?',
+                   text: "You wan't to delete user",
+                   icon: 'warning',
+                   showCancelButton: true,
+                   confirmButtonColor: '#3085d6',
+                   cancelButtonColor: '#d33',
+                   confirmButtonText: 'Yes, delete it!'
+               }).then((result) => {
+                   if (result.value) {
+                       window.location.href = link;
+                       Swal.fire(
+                           'Deleted!',
+                           'Your file has been deleted.',
+                           'success'
+                       )
+                   }
+               })
+           })
+        });
+    </script>
 @endsection

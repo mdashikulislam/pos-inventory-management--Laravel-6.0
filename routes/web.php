@@ -24,4 +24,7 @@ Route::prefix('user')->namespace('Backend')->middleware('auth')->group(function 
     Route::get('/view','UserController@view')->name('users.view');
     Route::get('/add','UserController@adduser')->name('user.add');
     Route::post('/store','UserController@store')->name('user.store');
+    Route::get('/edit/{id}','UserController@edit')->name('user.edit');
+    Route::post('/update/{id}','UserController@update')->name('user.update');
+    Route::get('/delete/{id}','UserController@delete')->name('user.delete');
 });

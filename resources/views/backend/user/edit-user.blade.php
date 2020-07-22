@@ -32,46 +32,38 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3>
-                                    <i class="fas fa-edit mr-1"></i>
-                                    Add User
+                                    <i class="fas fa-plus mr-1"></i>
+                                    Update User
                                     <a href="{{route('users.view')}}" class="btn btn-success float-right"> <i class="fas fa-list fa-fw mr-1"></i>User List</a>
                                 </h3>
 
                             </div><!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{route('user.store')}}" method="post" id="myForm">
+                                <form action="{{route('user.update',['id'=>$user->id])}}" method="post" id="myForm">
                                     @csrf
                                     <div class="form-row">
                                         <div class="col-md-4 form-group">
                                             <label for="usertype">User Role</label>
                                             <select name="usertype" id="usertype" class="form-control" style="@if($errors->has('usertype')) border-color:red; @endif">
                                                 <option value="">Select Role</option>
-                                                <option value="admin" >Admin</option>
-                                                <option value="user">User</option>
+                                                <option value="admin" {{$user->usertype == 'admin' ? "selected":''}}>Admin</option>
+                                                <option value="user" {{$user->usertype == 'user' ? "selected":''}}>User</option>
                                             </select>
                                             <p style="color: red;">{{$errors->has('usertype') ? $errors->first('usertype'):''}}</p>
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" name="name" id="name" class="form-control" style="@if($errors->has('name')) border-color:red; @endif" value="{{old('name')}}">
+                                            <input type="text" name="name" id="name" class="form-control" style="@if($errors->has('name')) border-color:red; @endif" value="{{$user->name}}">
                                             <p style="color: red;">{{$errors->has('name') ? $errors->first('name'):''}}</p>
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label for="email">Email</label>
-                                            <input type="email" name="email" id="email" class="form-control" style="@if($errors->has('email')) border-color:red; @endif" value="{{old('email')}}">
+                                            <input type="email" name="email" id="email" class="form-control" style="@if($errors->has('email')) border-color:red; @endif" value="{{$user->email}}">
                                             <p style="color: red;">{{$errors->has('email') ? $errors->first('email'):''}}</p>
                                         </div>
-                                        <div class="col-md-4 form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" name="password" id="password" class="form-control" style="@if($errors->has('password')) border-color:red; @endif">
-                                            <p style="color: red;">{{$errors->has('password') ? $errors->first('password'):''}}</p>
-                                        </div>
-                                        <div class="col-md-4 form-group">
-                                            <label for="password_confirmation">Confirm Password</label>
-                                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" style="@if($errors->has('password')) border-color:red; @endif">
-                                        </div>
+
                                         <div class="form-group col-md-6" >
-                                            <input type="submit" class="btn btn-primary" value="Submit">
+                                            <input type="submit" class="btn btn-primary" value="Update">
                                         </div>
                                     </div>
                                 </form>
@@ -96,7 +88,7 @@
             $('#myForm').validate({
                 rules: {
                     usertype:{
-                      required:true
+                        required:true
                     },
                     name:{
                         required:true,
@@ -108,17 +100,6 @@
                         email: true,
                         maxlength:255
                     },
-                    password: {
-                        required: true,
-                        minlength: 8,
-                        maxlength: 20
-                    },
-                    password_confirmation:{
-                        required:true,
-                        minlength: 8,
-                        maxlength: 20,
-                        equalTo: '#password'
-                    }
                 },
                 messages: {
                     usertype:{
@@ -133,17 +114,6 @@
                         email: "Please enter a vaild email address",
                         maxlength:"Your email must be upto 255 characters long"
                     },
-                    password: {
-                        required: "Please provide a password",
-                        minlength: "Your password must be at least 8 characters long",
-                        maxlength: "Your password must be upto 20 characters long"
-                    },
-                    password_confirmation:{
-                        required: "Please provide a password",
-                        minlength: "Your password must be at least 8 characters long",
-                        maxlength: "Your password must be upto 20 characters long",
-                        equalTo: "Confirm password dose not match"
-                    }
                 },
                 errorElement: 'span',
                 errorPlacement: function (error, element) {

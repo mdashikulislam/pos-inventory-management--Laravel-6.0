@@ -166,5 +166,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('backend/dist/js/demo.js')}}"></script>
 @yield('js')
+@include('sweetalert::alert')
 </body>
 </html>
