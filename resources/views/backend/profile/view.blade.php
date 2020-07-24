@@ -65,7 +65,6 @@
 
                                     </tbody>
                                 </table>
-
                                 <a href="{{route('profile.edit',['id'=> $profile->id])}}" class="btn btn-success btn-block mt-2"><i class="fas fa-edit"></i> <b>Edit Profile</b></a>
                             </div>
                             <!-- /.card-body -->

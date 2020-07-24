@@ -16,6 +16,14 @@ use Illuminate\Support\Str;
 | model instances for testing / seeding your application's database.
 |
 */
+$factory->define(\App\Model\Supplier::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->unique()->safeEmail,
+        'mobile'=>$faker->phoneNumber,
+        'address'=>$faker->address,
+    ];
+});
 
 $factory->define(User::class, function (Faker $faker) {
     return [

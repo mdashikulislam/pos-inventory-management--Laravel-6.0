@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Model\Supplier;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,6 @@ class ProfileController extends Controller
 
     public function update($id,Request $request)
     {
-
         $info = User::findOrFail($id);
         $this->validate($request,[
             'name' => ['required', 'string', 'max:255'],
