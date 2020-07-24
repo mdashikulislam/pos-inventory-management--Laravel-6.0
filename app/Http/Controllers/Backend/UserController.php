@@ -72,6 +72,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete($user);
+        if (file_exists('public/upload/user_images/'. $user->image) AND !empty($user->image)){
+            unlink('public/upload/user_images/'.$user->image);
+        }
         toast('User Delete Successfully','success');
         return redirect()->route('users.view');
     }

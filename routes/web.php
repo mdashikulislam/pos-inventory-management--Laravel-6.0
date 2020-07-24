@@ -28,3 +28,10 @@ Route::prefix('user')->namespace('Backend')->middleware('auth')->group(function 
     Route::post('/update/{id}','UserController@update')->name('user.update');
     Route::get('/delete/{id}','UserController@delete')->name('user.delete');
 });
+Route::prefix('profile')->namespace('Backend')->middleware('auth')->group(function (){
+    Route::get('/view','ProfileController@view')->name('profile.view');
+    Route::get('/edit/{id}','ProfileController@edit')->name('profile.edit');
+    Route::post('/update/{id}','ProfileController@update')->name('profile.update');
+    Route::get('/change_password','ProfileController@changePassword')->name('profile.change_password');
+    Route::post('/password/update','ProfileController@passwordUpdate')->name('password.update');
+});
