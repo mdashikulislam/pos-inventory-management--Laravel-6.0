@@ -19,7 +19,7 @@
                 <li class="nav-item " >
                     <a href="{{route('users.view')}}" class="nav-link {{($route == 'users.view') ? 'active':''}}">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>View User</p>
+                        <p>View Units</p>
                     </a>
                 </li>
             </ul>
@@ -61,6 +61,42 @@
                         <a href="{{route('supplier.view')}}" class="nav-link {{($route == 'supplier.view') ? 'active':''}}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>View Suppliers</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+        <li class="nav-item has-treeview {{($prefix == '/customer') ? 'menu-open':''}}">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                    Manage Customer
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('customer.view')}}" class="nav-link {{($route == 'customer.view') ? 'active':''}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>View Customer</p>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="nav-item has-treeview {{($prefix == '/unit') ? 'menu-open':''}}">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>
+                        Manage Units
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('unit.view')}}" class="nav-link {{($route == 'unit.view') ? 'active':''}}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>View Units</p>
                         </a>
                     </li>
 

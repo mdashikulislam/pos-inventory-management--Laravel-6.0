@@ -47,6 +47,17 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::post('/update/{id}','SupplierController@update')->name('supplier.update');
         Route::get('/delete/{id}','SupplierController@delete')->name('supplier.delete');
     });
+    Route::prefix('customer')->group(function (){
+        Route::get('/view','CustomerController@index')->name('customer.view');
+        Route::get('/add','CustomerController@add')->name('customer.add');
+        Route::post('/store','CustomerController@store')->name('customer.store');
+        Route::get('/edit/{id}','CustomerController@edit')->name('customer.edit');
+        Route::post('/update/{id}','CustomerController@update')->name('customer.update');
+        Route::get('/delete/{id}','CustomerController@delete')->name('customer.delete');
+    });
+    Route::prefix('unit')->group(function (){
+        Route::get('/view','UnitController@index')->name('unit.view');
+    });
 });
 
 
