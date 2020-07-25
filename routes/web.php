@@ -57,6 +57,11 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
     });
     Route::prefix('unit')->group(function (){
         Route::get('/view','UnitController@index')->name('unit.view');
+        Route::get('/add','UnitController@add')->name('unit.add');
+        Route::post('/store','UnitController@store')->name('unit.store');
+        Route::get('/edit/{id}','UnitController@edit')->name('unit.edit');
+        Route::post('/update/{id}','UnitController@update')->name('unit.update');
+        Route::get('/delete/{id}','UnitController@delete')->name('unit.delete');
     });
 });
 

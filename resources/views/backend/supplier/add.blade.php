@@ -64,7 +64,7 @@
                                             <p style="color: red;">{{$errors->has('address') ? $errors->first('address'):''}}</p>
                                         </div>
                                         <div class="form-group col-md-6" >
-                                            <input type="submit" class="btn btn-primary" value="Submit">
+                                            <input type="submit" class="btn btn-primary" value="Create">
                                         </div>
                                     </div>
                                 </form>
@@ -129,50 +129,6 @@
                 }
             });
         });
-    </script><script>
-        $(function () {
-            $('#myForm').validate({
-                rules: {
-                    name:{
-                        required:true,
-                        maxlength: 255
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                        maxlength: 32
-
-                    },
-                    mobile:{
-                        required: true,
-                    },
-                    address:{
-                        required: true,
-                    }
-                },
-                messages: {
-                    name:{
-                        required:'Please enter name',
-                        maxlength:'Your name must be upto 255 characters long'
-                    },
-                    email: {
-                        required: "Please enter a email address",
-                        email: "Please enter a vaild email address",
-                        maxlength:"Your email must be upto 32 characters long"
-                    },
-                },
-                errorElement: 'span',
-                errorPlacement: function (error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
-        });
     </script>
+
 @endsection
