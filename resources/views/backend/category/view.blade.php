@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Manage Suppliers</h1>
+                        <h1 class="m-0 text-dark">Manage Categories</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                            <li class="breadcrumb-item active">Suppliers</li>
+                            <li class="breadcrumb-item active">Categories</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -33,8 +33,8 @@
                             <div class="card-header">
                                 <h3>
                                     <i class="fas fa-list mr-1"></i>
-                                    Suppliers List
-                                    <a href="{{route('supplier.add')}}" class="btn btn-success float-right"> <i class="fas fa-plus-circle fa-fw"></i>Add Supplier</a>
+                                    Categories List
+                                    <a href="{{route('category.add')}}" class="btn btn-success float-right"> <i class="fas fa-plus-circle fa-fw"></i>Add Category</a>
                                 </h3>
 
                             </div><!-- /.card-header -->
@@ -44,24 +44,18 @@
                                     <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Mobile No</th>
-                                        <th>Address</th>
+                                        <th>Category Name</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($suppliers as $supplier)
+                                    @foreach($categories as $category)
                                         <tr>
                                             <td>@if($loop->index + 1 <10){{'0'.($loop->index+1)}}@endif @if($loop->index + 1 > 9){{($loop->index+1)}}@endif</td>
-                                            <td>{{$supplier->name}}</td>
-                                            <td>{{$supplier->email}}</td>
-                                            <td> {{$supplier->mobile}}</td>
-                                            <td> {{$supplier->address}}</td>
+                                            <td>{{$category->name}}</td>
                                             <td>
-                                                <a title="Edit" href="{{route('supplier.edit',['id'=>$supplier->id])}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                                <a title="Delete" href="{{route('supplier.delete',['id'=>$supplier->id])}}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
+                                                <a title="Edit" href="{{route('category.edit',['id'=>$category->id])}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                                <a title="Delete" href="{{route('category.delete',['id'=>$category->id])}}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -69,10 +63,7 @@
                                     <tfoot>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Mobile No</th>
-                                        <th>Address</th>
+                                        <th>Category Name</th>
                                         <th>Action</th>
                                     </tr>
                                     </tfoot>

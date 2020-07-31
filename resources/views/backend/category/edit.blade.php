@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Manage Units</h1>
+                        <h1 class="m-0 text-dark">Manage Categories</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                            <li class="breadcrumb-item active">Units</li>
+                            <li class="breadcrumb-item active">Categories</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -33,18 +33,18 @@
                             <div class="card-header">
                                 <h3>
                                     <i class="fas fa-plus mr-1"></i>
-                                    Edit Units
-                                    <a href="{{route('unit.view')}}" class="btn btn-success float-right"> <i class="fas fa-list fa-fw mr-1"></i>Units List</a>
+                                    Edit Category
+                                    <a href="{{route('unit.view')}}" class="btn btn-success float-right"> <i class="fas fa-list fa-fw mr-1"></i>Categories List</a>
                                 </h3>
 
                             </div><!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{route('unit.update',['id'=>$unit->id])}}" method="post" id="myForm">
+                                <form action="{{route('category.update',['id'=>$category->id])}}" method="post" id="myForm">
                                     @csrf
                                     <div class="form-row">
                                         <div class="col-md-6 form-group">
-                                            <label for="name">Unit Name</label>
-                                            <input type="text" name="name" id="name" class="form-control" style="@if($errors->has('name')) border-color:red; @endif" value="{{$unit->name}}">
+                                            <label for="name">Category Name</label>
+                                            <input type="text" name="name" id="name" class="form-control" style="@if($errors->has('name')) border-color:red; @endif" value="{{$category->name}}">
                                             <p style="color: red;">{{$errors->has('name') ? $errors->first('name'):''}}</p>
                                         </div>
 

@@ -15,7 +15,6 @@ class UnitController extends Controller
             'units'=>$unit
         ]);
     }
-
     public function add()
     {
         return view('backend.unit.add');

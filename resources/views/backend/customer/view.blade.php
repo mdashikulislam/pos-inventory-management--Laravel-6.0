@@ -48,7 +48,7 @@
                                         <th>Email</th>
                                         <th>Mobile No</th>
                                         <th>Address</th>
-                                        <th>Action</th>
+                                        <th style="width: 10%">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>

@@ -19,7 +19,7 @@
                 <li class="nav-item " >
                     <a href="{{route('users.view')}}" class="nav-link {{($route == 'users.view') ? 'active':''}}">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>View Units</p>
+                        <p>View Users</p>
                     </a>
                 </li>
             </ul>
@@ -97,6 +97,42 @@
                         <a href="{{route('unit.view')}}" class="nav-link {{($route == 'unit.view') ? 'active':''}}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>View Units</p>
+                        </a>
+                    </li>
+
+                </ul>
+        </li>
+            <li class="nav-item has-treeview {{($prefix == '/category') ? 'menu-open':''}}">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>
+                        Manage Category
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('category.view')}}" class="nav-link {{($route == 'category.view') ? 'active':''}}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>View Category</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item has-treeview {{($prefix == '/product') ? 'menu-open':''}}">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>
+                        Manage Products
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('product.view')}}" class="nav-link {{($route == 'product.view') ? 'active':''}}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>View Products</p>
                         </a>
                     </li>
 

@@ -45,7 +45,7 @@
                                     <tr>
                                         <th>SL</th>
                                         <th>Unit Name</th>
-                                        <th>Action</th>
+                                        <th style="width: 10%">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>

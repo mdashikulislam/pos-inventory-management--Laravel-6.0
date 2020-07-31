@@ -33,7 +33,7 @@
                             <div class="card-header">
                                 <h3>
                                     <i class="fas fa-edit mr-1"></i>
-                                    Update Profile
+                                    Edit Profile
 
                                 </h3>
 
