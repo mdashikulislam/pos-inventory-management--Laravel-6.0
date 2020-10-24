@@ -70,7 +70,6 @@ class ProductController extends Controller
         toast('Product Update Successfully','success');
         return redirect()->route('product.view');
     }
-
     public function delete($id)
     {
         $product = Product::findorfail($id);

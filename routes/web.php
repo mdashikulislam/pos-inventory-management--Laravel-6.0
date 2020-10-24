@@ -80,6 +80,15 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::get('/delete/{id}','ProductController@delete')->name('product.delete');
     });
 
+    Route::prefix('purchase')->group(function (){
+       Route::get('/view','PurchaseController@index')->name('purchase.view');
+        Route::get('/add','PurchaseController@add')->name('purchase.add');
+        Route::post('/store','PurchaseController@store')->name('purchase.store');
+        Route::get('/edit/{id}','PurchaseController@edit')->name('purchase.edit');
+        Route::post('/update/{id}','PurchaseController@update')->name('purchase.update');
+        Route::get('/delete/{id}','PurchaseController@delete')->name('purchase.delete');
+    });
+
 });
 
 
