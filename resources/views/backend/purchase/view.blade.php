@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Manage Products</h1>
+                        <h1 class="m-0 text-dark">Manage Purchase</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -33,8 +33,8 @@
                             <div class="card-header">
                                 <h3>
                                     <i class="fas fa-list mr-1"></i>
-                                    Products List
-                                    <a href="{{route('purchase.add')}}" class="btn btn-success float-right"> <i class="fas fa-plus-circle fa-fw"></i> Add Purchase</a>
+                                    Purchase List
+                                    <a href="{{route('purchase.add')}}" class="btn btn-success float-right"> <i class="fas fa-plus-circle fa-fw"></i>Add Purchase</a>
                                 </h3>
 
                             </div><!-- /.card-header -->
@@ -44,22 +44,34 @@
                                     <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Supplier Name</th>
-                                        <th>Category</th>
-                                        <th>Name</th>
+                                        <th>Purchase No</th>
+                                        <th>Date</th>
+                                        <th>Product Name</th>
                                         <th>Unit</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    @foreach($purchases as $purchase)
+                                        <tr>
+                                            <td>@if($loop->index + 1 <10){{'0'.($loop->index+1)}}@endif @if($loop->index + 1 > 9){{($loop->index+1)}}@endif</td>
+                                            <td>{{$purchase->purchase_no}}</td>
+                                            <td>{{$product->date}}</td>
+                                            <td> {{$product->products->name}}</td>
+                                            <td> {{$product->units->name}}</td>
+                                            <td>
+                                                <a title="Edit" href="{{route('purchase.edit',['id'=>$product->id])}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                                <a title="Delete" href="{{route('purchase.delete',['id'=>$product->id])}}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                     <tfoot>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Supplier Name</th>
-                                        <th>Category</th>
-                                        <th>Name</th>
+                                        <th>Purchase No</th>
+                                        <th>Date</th>
+                                        <th>Product Name</th>
                                         <th>Unit</th>
                                         <th>Action</th>
                                     </tr>
