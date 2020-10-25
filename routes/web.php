@@ -87,9 +87,12 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::get('/edit/{id}','PurchaseController@edit')->name('purchase.edit');
         Route::post('/update/{id}','PurchaseController@update')->name('purchase.update');
         Route::get('/delete/{id}','PurchaseController@delete')->name('purchase.delete');
-        Route::get('/get-supplier','PurchaseController@getSupplier')->name('supplier.get');
-    });
 
+    });
+    Route::prefix('join-table')->group(function (){
+        Route::get('/get-supplier','DefaultController@getSupplier')->name('supplier.get');
+        Route::get('/get-category','DefaultController@getCategory')->name('category.get');
+    });
 });
 
 

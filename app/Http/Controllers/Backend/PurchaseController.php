@@ -35,13 +35,5 @@ class PurchaseController extends Controller
     public function update($id, Request $request){}
     public function delete($id){}
 
-    public function getSupplier(Request $request)
-    {
-        $categoryId =  Product::select('category_id')
-            ->where('supplier_id',$request->supplier_id)
-            ->groupBy('category_id')
-            ->get();
 
-        return response()->json($categoryId);
-    }
 }

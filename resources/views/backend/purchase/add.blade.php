@@ -39,7 +39,6 @@
                                 </h3>
                             </div><!-- /.card-header -->
                             <div class="card-body">
-
                                     <div class="form-row">
                                         <div class="col-md-4 form-group">
                                             <label for="date">Date</label>
@@ -63,25 +62,56 @@
                                         <div class="col-md-5 form-group">
                                             <label for="category">Categories Name</label>
                                             <select name="category" id="category" class="form-control" style="@if($errors->has('usertype')) border-color:red; @endif">
+                                                <option value="">Please Select Categories</option>
                                             </select>
                                             <p style="color: red;">{{$errors->has('category') ? $errors->first('category'):''}}</p>
                                         </div>
                                         <div class="col-md-5 form-group">
                                             <label for="category">Product Name</label>
                                             <select name="product" id="product" class="form-control" style="@if($errors->has('usertype')) border-color:red; @endif">
-                                                <option value="">Select Product</option>
-                                                @foreach($products as $product)
-                                                    <option value="{{$product->id}}" >{{$product->name}}</option>
-                                                @endforeach
+                                                <option value="">Please Select Product</option>
                                             </select>
                                             <p style="color: red;">{{$errors->has('product') ? $errors->first('product'):''}}</p>
                                         </div>
                                         <div class="form-group col-md-2" style="margin-top: 30px;">
-                                            <p style="width: 100%" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add More</p>
+                                            <button style="width: 100%" class="btn btn-success addEventMore"><i class="fa fa-plus-circle"></i> Add More</button>
                                         </div>
                                     </div>
 
                             </div><!-- /.card-body -->
+                            <div class="card-body">
+                                <form action="" method="POST">
+                                    <table class="table-sm table-bordered" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Category</th>
+                                                <th>Product Name</th>
+                                                <th width="7%">Qty</th>
+                                                <th width="10%">Unit Price</th>
+                                                <th>Description</th>
+                                                <th width="10%">Total Price</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="addRow" class="addRow">
+
+                                        </tbody>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="5"></td>
+                                                <td>
+                                                    <input name="estimated_amount" type="text" class="form-control form-control-sm text-right estimated_amount" value="0" readonly style="background: #00d75e;color: #fff;font-size: 18px;">
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn  btn-primary" id="storeButton">Purchase Store</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <!-- /.card -->
                     </section>
@@ -95,8 +125,77 @@
     <!-- /.content-wrapper -->
 @endsection
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{asset('backend/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('backend/plugins/jquery-validation/additional-methods.min.js')}}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $(document).on('click','.addEventMore',function (){
+                var date = $('#date').val();
+                var purchaseNo = $('#purchase_no').val();
+                var supplierId = $('#supplier').val();
+                var categoryId = $('#category').val();
+                var categoryName = $('#category').find('option:selected').text();
+                var productId = $('#product').val();
+                var productName = $('#product').find('option:selected').text();
+
+                if (productId ===''){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Product Name is required',
+                    });
+                }
+                if (categoryId === ''){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Category Name is required',
+                    });
+                }
+                if (supplierId === ''){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Supplier Name is required',
+                    });
+                }
+                if (purchaseNo === ''){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Purchase No is required',
+                    });
+                }
+                if (date === ''){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Date is required',
+                    });
+                }
+
+                var source = $('#document-template').html();
+                var template = Handlebars.compile(source);
+                var data = {
+                    date:date,
+                    purchaseNo:purchaseNo,
+                    supplierId:supplierId,
+                    categoryId:categoryId,
+                    categoryName:categoryName,
+                    productId:productId,
+                    productName:productName,
+                }
+                var html = template(data);
+                $('#addRow').append(html);
+            });
+
+            $(document).on('click','.removeEventMore',function (event){
+                $(this).closest('.delete_add_more_item').remove();
+            });
+        });
+    </script>
     <script>
         $(function () {
             $('#myForm').validate({
@@ -141,15 +240,67 @@
                     method:'GET',
                     data:{supplier_id:supplierId},
                     success:function (response){
-                        var html = '<option>Please Select Categories</option>';
+                        $('#category').empty();
+                        $('#product').empty();
+                        var html = '<option value="">Please Select Categories</option>';
+                        $('#product').html('<option value="">Please Select Product</option>');
                         $.each(response,function (key, value){
-                            html +='<option value="'+value.category_id+'">'+value.category_id+'</option>';
+                            html +='<option value="'+value.category_id+'">'+value.categories.name+'</option>';
                         });
                         $('#category').html(html);
                     }
                 });
             });
+            $(document).on('change','#category',function (){
+                var categoryId = $(this).val();
+                $.ajax({
+                    url:'{{route('category.get')}}',
+                    method:'GET',
+                    data: {category_id:categoryId},
+                    success:function (response){
+                        $('#product').empty();
+                        var productName = '<option value="">Please Select Product</option>'
+                        $.each(response,function (key, value){
+                            productName += '<option value="'+value.id+'">'+value.name+'</option>'
+                        });
+                        $('#product').html(productName);
+                    }
+                });
+            });
         });
+    </script>
+    <script id="document-template" type="text/x-handlebars-template">
+        <tr class="delete_add_more_item" id="delete_add_more_item">
+            <input type="hidden" name="date[]" value="@{{ date }}">
+            <input type="hidden" name="purchase_no[]" value="@{{purchase_no  }}">
+            <input type="hidden" name="supplier_id[]" value="@{{supplier_id}}">
+            <td>
+                <input type="hidden" name="category_id[]" value="@{{ categoryId }}">
+                @{{ category_name }}
+            </td>
+            <td>
+                <input type="hidden" name="product_id[]" value="@{{ product_id }}">
+                @{{ product_name }}
+            </td>
+            <td>
+                <input type="number" min="1" class="form-control form-control-sm text-right product_id" name="product_id[]" value="1">
+            </td>
+            <td>
+                <input type="number"  class="form-control form-control-sm text-right unit_price" name="unit_price[]" value="1">
+            </td>
+            <td>
+                <input type="text" name="description[]" class="form-control-sm form-control">
+            </td>
+            <td>
+                <input type="text" class="form-control form-control-sm buying_price" name="buying_price[]" value="0" readonly>
+            </td>
+            <td>
+                <a class="btn btn-danger removeEventMore">
+                    <i class="fa fa-trash"></i>
+                </a>
+
+            </td>
+        </tr>
     </script>
     <script>
         $('.datepicker').datepicker({
