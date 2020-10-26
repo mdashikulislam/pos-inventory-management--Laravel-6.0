@@ -9,6 +9,7 @@ use App\Purchase;
 use App\Supplier;
 use App\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
@@ -30,10 +31,47 @@ class PurchaseController extends Controller
                 'products'=>Product::all()
             ]);
     }
-    public function store( Request $request){}
+    public function store( Request $request){
+        if ($request->category_id == null){
+            toast('Sorry! you do not select any item','error');
+            return redirect()->back();
+        }else{
+            $countCategory = count($request->category_id);
+            for ($i = 0; $i < $countCategory; $i++){
+                $purchase = new Purchase();
+                $purchase->date = date('Y-m-d',strtotime($request->date[$i]));
+                $purchase->purchase_no = $request->purchase_no[$i];
+                $purchase->supplier_id = $request->supplier_id[$i];
+                $purchase->category_id = $request->category_id[$i];
+                $purchase->product_id = $request->product_id[$i];
+                $purchase->buying_qty = $request->buying_qty[$i];
+                $purchase->unit_price = $request->unit_price[$i];
+                $purchase->bying_price = $request->buying_price[$i];
+                $purchase->description = $request->description[$i];
+                $purchase->status = '0';
+                $purchase->created_by = Auth::user()->id;
+                $purchase->save();
+            }
+            toast('Data Saved successfully','success');
+            return redirect()->route('purchase.view');
+        }
+    }
     public function edit($id){}
     public function update($id, Request $request){}
-    public function delete($id){}
+    public function delete($id){
+        $purchase = Purchase::findorfail($id)->delete();
+        toast('Data delete successfully...!!','success');
+        return redirect()->back();
+    }
 
+    public function pendingPurchase()
+    {
+        $purchase = Purchase::orderBy('date','DESC')->orderBy('id','DESC')->where('status','=','0')->get();
+
+        return view('backend.purchase.pending')
+            ->with([
+                'purchases'=>$purchase
+            ]);
+    }
 
 }

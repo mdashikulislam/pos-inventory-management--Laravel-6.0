@@ -58,7 +58,6 @@
                                             </select>
                                             <p style="color: red;">{{$errors->has('supplier') ? $errors->first('supplier'):''}}</p>
                                         </div>
-
                                         <div class="col-md-5 form-group">
                                             <label for="category">Categories Name</label>
                                             <select name="category" id="category" class="form-control" style="@if($errors->has('usertype')) border-color:red; @endif">
@@ -80,7 +79,8 @@
 
                             </div><!-- /.card-body -->
                             <div class="card-body">
-                                <form action="" method="POST">
+                                <form action="{{route('purchase.store')}}" method="POST">
+                                    @csrf
                                     <table class="table-sm table-bordered" width="100%">
                                         <thead>
                                             <tr>
@@ -89,8 +89,8 @@
                                                 <th width="7%">Qty</th>
                                                 <th width="10%">Unit Price</th>
                                                 <th>Description</th>
-                                                <th width="10%">Total Price</th>
-                                                <th>Action</th>
+                                                <th width="15%">Total Price</th>
+                                                <th width="5%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="addRow" class="addRow">
@@ -100,7 +100,7 @@
                                             <tr>
                                                 <td colspan="5"></td>
                                                 <td>
-                                                    <input name="estimated_amount" type="text" class="form-control form-control-sm text-right estimated_amount" value="0" readonly style="background: #00d75e;color: #fff;font-size: 18px;">
+                                                    <input name="estimated_amount" id="estimated_amount" type="text" class="form-control form-control-sm text-right estimated_amount" value="0" readonly style="background: #00d75e;color: #fff;font-size: 18px;">
                                                 </td>
                                                 <td></td>
                                             </tr>
@@ -125,7 +125,7 @@
     <!-- /.content-wrapper -->
 @endsection
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{{asset('backend/plugins/sweetalert2/sweetalert2.all.js')}}"></script>
     <script src="{{asset('backend/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{asset('backend/plugins/jquery-validation/additional-methods.min.js')}}"></script>
 
@@ -175,25 +175,44 @@
                         text: 'Date is required',
                     });
                 }
-
-                var source = $('#document-template').html();
-                var template = Handlebars.compile(source);
-                var data = {
-                    date:date,
-                    purchaseNo:purchaseNo,
-                    supplierId:supplierId,
-                    categoryId:categoryId,
-                    categoryName:categoryName,
-                    productId:productId,
-                    productName:productName,
+                if (date !== '' && purchaseNo !=='' && supplierId !=='' && categoryId!== '' && productId !==''){
+                    var source = $('#document-template').html();
+                    var template = Handlebars.compile(source);
+                    var data = {
+                        date:date,
+                        purchaseNo:purchaseNo,
+                        supplierId:supplierId,
+                        categoryId:categoryId,
+                        categoryName:categoryName,
+                        productId:productId,
+                        productName:productName,
+                    }
+                    var html = template(data);
+                    $('#addRow').append(html);
                 }
-                var html = template(data);
-                $('#addRow').append(html);
             });
-
             $(document).on('click','.removeEventMore',function (event){
                 $(this).closest('.delete_add_more_item').remove();
+                totalAmountOfPrice();
             });
+
+            $(document).on('keyup click','.unit_price,.buying_qty',function (){
+                var unitPrice = $(this).closest('tr').find('input.unit_price').val();
+                var buyQty = $(this).closest('tr').find('input.buying_qty').val();
+                var totalPrice = parseFloat(unitPrice) * parseFloat(buyQty);
+                $(this).closest('tr').find('input.buying_price').val(totalPrice);
+                totalAmountOfPrice();
+            });
+            function totalAmountOfPrice(){
+                var sum = 0;
+                $('.buying_price').each(function (){
+                    var value = $(this).val();
+                    if (!isNaN(value) && value.length !==0){
+                        sum +=parseFloat(value);
+                    }
+                });
+                $('#estimated_amount').val(sum);
+            }
         });
     </script>
     <script>
@@ -272,30 +291,31 @@
     <script id="document-template" type="text/x-handlebars-template">
         <tr class="delete_add_more_item" id="delete_add_more_item">
             <input type="hidden" name="date[]" value="@{{ date }}">
-            <input type="hidden" name="purchase_no[]" value="@{{purchase_no  }}">
-            <input type="hidden" name="supplier_id[]" value="@{{supplier_id}}">
+            <input type="hidden" name="purchase_no[]" value="@{{purchaseNo  }}">
+            <input type="hidden" name="supplier_id[]" value="@{{supplierId}}">
             <td>
                 <input type="hidden" name="category_id[]" value="@{{ categoryId }}">
-                @{{ category_name }}
+                @{{ categoryName }}
             </td>
             <td>
-                <input type="hidden" name="product_id[]" value="@{{ product_id }}">
-                @{{ product_name }}
+                <input type="hidden" name="product_id[]" value="@{{ productId }}">
+                @{{ productName }}
             </td>
             <td>
-                <input type="number" min="1" class="form-control form-control-sm text-right product_id" name="product_id[]" value="1">
+                <input type="number"  class="form-control form-control-sm text-right buying_qty"  name="buying_qty[]" value="1">
             </td>
             <td>
-                <input type="number"  class="form-control form-control-sm text-right unit_price" name="unit_price[]" value="1">
+                <input type="number"  class="form-control form-control-sm text-right unit_price" name="unit_price[]" value="0">
             </td>
+
             <td>
                 <input type="text" name="description[]" class="form-control-sm form-control">
             </td>
             <td>
-                <input type="text" class="form-control form-control-sm buying_price" name="buying_price[]" value="0" readonly>
+                <input type="text" class="form-control text-right form-control-sm buying_price" name="buying_price[]" value="0" readonly style="background: #00d75e;color: #fff;font-size: 18px;">
             </td>
             <td>
-                <a class="btn btn-danger removeEventMore">
+                <a class="btn btn-danger removeEventMore" style="color: #fff">
                     <i class="fa fa-trash"></i>
                 </a>
 

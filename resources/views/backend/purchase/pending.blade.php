@@ -33,8 +33,8 @@
                             <div class="card-header">
                                 <h3>
                                     <i class="fas fa-list mr-1"></i>
-                                    Purchase List
-                                    <a href="{{route('purchase.add')}}" class="btn btn-success float-right"> <i class="fas fa-plus-circle fa-fw"></i>Add Purchase</a>
+                                    Pending Purchase List
+
                                 </h3>
 
                             </div><!-- /.card-header -->

@@ -85,8 +85,9 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::get('/add','PurchaseController@add')->name('purchase.add');
         Route::post('/store','PurchaseController@store')->name('purchase.store');
         Route::get('/edit/{id}','PurchaseController@edit')->name('purchase.edit');
-        Route::post('/update/{id}','PurchaseController@update')->name('purchase.update');
+//        Route::post('/update/{id}','PurchaseController@update')->name('purchase.update');
         Route::get('/delete/{id}','PurchaseController@delete')->name('purchase.delete');
+        Route::get('/pending','PurchaseController@pendingPurchase')->name('purchase.pending');
 
     });
     Route::prefix('join-table')->group(function (){
