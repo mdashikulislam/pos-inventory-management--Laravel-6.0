@@ -159,6 +159,12 @@
                             <p>Pending Purchase</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('purchase.approve')}}" class="nav-link {{($route == 'purchase.approve') ? 'active':''}}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Approve Purchase</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
     </ul>

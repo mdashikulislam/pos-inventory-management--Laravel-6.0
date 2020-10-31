@@ -74,4 +74,22 @@ class PurchaseController extends Controller
             ]);
     }
 
+    public function statusChange($id, Request $request)
+    {
+        $purchase = Purchase::where('id',$id)->first();
+        $purchase->status = '1';
+        $purchase->save();
+        toast('Purchased Approve successfully','success');
+        return redirect()->back();
+
+    }
+    public function approvePurchase()
+    {
+        $purchase = Purchase::orderBy('date','DESC')->orderBy('id','DESC')->where('status','=','1')->get();
+
+        return view('backend.purchase.approve')
+            ->with([
+                'purchases'=>$purchase
+            ]);
+    }
 }

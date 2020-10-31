@@ -54,7 +54,7 @@
                                         <th>Unit Price</th>
                                         <th>Buying Price</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -71,35 +71,7 @@
                                             <td> {{$purchase->unit_price}}</td>
                                             <td> {{$purchase->bying_price}}</td>
                                             <td> <span class="badge @if($purchase->status =='0')badge-danger @elseif($purchase->status =='1')badge-success @endif">@if($purchase->status =='0'){{__('Pending')}}@elseif($purchase->status == '1'){{__('Approved')}}@endif</span></td>
-                                            <td>
-                                                <form action="{{route('purchase.status.approve',['id'=>$purchase->id])}}" method="post" style="display: none;"
-                                                id="status-change-{{$purchase->id}}">
-                                                    @csrf
-                                                </form>
-                                                <a title="Approve" href="" class="btn btn-warning btn-sm"
-                                                   onclick="
-                                                   event.preventDefault();
-                                                    Swal.fire({
-                                                       title: 'Are you sure?',
-                                                        text:'Are you want to approve purchase ?',
-                                                       icon: 'warning',
-                                                       showCancelButton: true,
-                                                       confirmButtonColor: '#3085d6',
-                                                       cancelButtonColor: '#d33',
-                                                       confirmButtonText: 'Yes, update it!'
-                                                    }).then((result)=>{
-                                                        if (result.isConfirmed) {
-                                                            Swal.fire(
-                                                              'Updated!',
-                                                              'Your file has been deleted.',
-                                                              'success'
-                                                            )
-                                                          }
-                                                       document.getElementById('status-change-{{$purchase->id}}').submit();
-                                                    });
-                                                    "
-                                                ><i class="fas fa-check" style="color:#fff;"></i></a>
-                                            </td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>

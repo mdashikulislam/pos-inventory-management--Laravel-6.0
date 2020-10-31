@@ -32,6 +32,7 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::post('/update/{id}','UserController@update')->name('user.update');
         Route::get('/delete/{id}','UserController@delete')->name('user.delete');
     });
+
     Route::prefix('profile')->group(function (){
         Route::get('/view','ProfileController@view')->name('profile.view');
         Route::get('/edit/{id}','ProfileController@edit')->name('profile.edit');
@@ -39,6 +40,7 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::get('/change_password','ProfileController@changePassword')->name('profile.change_password');
         Route::post('/password/update','ProfileController@passwordUpdate')->name('password.update');
     });
+
     Route::prefix('supplier')->group(function (){
         Route::get('/view','SupplierController@view')->name('supplier.view');
         Route::get('/add','SupplierController@add')->name('supplier.add');
@@ -47,6 +49,7 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::post('/update/{id}','SupplierController@update')->name('supplier.update');
         Route::get('/delete/{id}','SupplierController@delete')->name('supplier.delete');
     });
+
     Route::prefix('customer')->group(function (){
         Route::get('/view','CustomerController@index')->name('customer.view');
         Route::get('/add','CustomerController@add')->name('customer.add');
@@ -55,6 +58,7 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::post('/update/{id}','CustomerController@update')->name('customer.update');
         Route::get('/delete/{id}','CustomerController@delete')->name('customer.delete');
     });
+
     Route::prefix('unit')->group(function (){
         Route::get('/view','UnitController@index')->name('unit.view');
         Route::get('/add','UnitController@add')->name('unit.add');
@@ -63,6 +67,7 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::post('/update/{id}','UnitController@update')->name('unit.update');
         Route::get('/delete/{id}','UnitController@delete')->name('unit.delete');
     });
+
     Route::prefix('category')->group(function (){
         Route::get('/view','CategoryController@index')->name('category.view');
         Route::get('/add','CategoryController@add')->name('category.add');
@@ -71,6 +76,7 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::post('/update/{id}','CategoryController@update')->name('category.update');
         Route::get('/delete/{id}','CategoryController@delete')->name('category.delete');
     });
+
     Route::prefix('product')->group(function (){
         Route::get('/view','ProductController@index')->name('product.view');
         Route::get('/add','ProductController@add')->name('product.add');
@@ -88,8 +94,10 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
 //        Route::post('/update/{id}','PurchaseController@update')->name('purchase.update');
         Route::get('/delete/{id}','PurchaseController@delete')->name('purchase.delete');
         Route::get('/pending','PurchaseController@pendingPurchase')->name('purchase.pending');
-
+        Route::post('/approve/status/{id}','PurchaseController@statusChange')->name('purchase.status.approve');
+        Route::get('/approve','PurchaseController@approvePurchase')->name('purchase.approve');
     });
+
     Route::prefix('join-table')->group(function (){
         Route::get('/get-supplier','DefaultController@getSupplier')->name('supplier.get');
         Route::get('/get-category','DefaultController@getCategory')->name('category.get');
