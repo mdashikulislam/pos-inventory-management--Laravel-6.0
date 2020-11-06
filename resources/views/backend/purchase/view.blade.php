@@ -72,7 +72,9 @@
                                             <td> {{$purchase->bying_price}}</td>
                                             <td> <span class="badge @if($purchase->status =='0')badge-danger @elseif($purchase->status =='1')badge-success @endif">@if($purchase->status =='0'){{__('Pending')}}@elseif($purchase->status == '1'){{__('Approved')}}@endif</span></td>
                                             <td>
-                                                <a title="Delete" href="{{route('purchase.delete',['id'=>$purchase->id])}}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
+                                                @if($purchase->status === 0)
+                                                    <a title="Delete" href="{{route('purchase.delete',['id'=>$purchase->id])}}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -137,4 +139,5 @@
             })
         });
     </script>
+
 @endsection

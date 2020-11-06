@@ -53,9 +53,14 @@
                                         <tr>
                                             <td>@if($loop->index + 1 <10){{'0'.($loop->index+1)}}@endif @if($loop->index + 1 > 9){{($loop->index+1)}}@endif</td>
                                             <td>{{$unit->name}}</td>
+                                            @php
+                                                $unit_count = \App\Product::where('unit_id',$unit->id)->count();
+                                            @endphp
                                             <td>
                                                 <a title="Edit" href="{{route('unit.edit',['id'=>$unit->id])}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                                @if($unit_count < 1)
                                                 <a title="Delete" href="{{route('unit.delete',['id'=>$unit->id])}}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

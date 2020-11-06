@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SupplierController extends Controller
 {
-    //
+
     public function view()
     {
         $supplier = Supplier::all();

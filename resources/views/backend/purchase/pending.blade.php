@@ -94,8 +94,8 @@
                                                               'Your file has been deleted.',
                                                               'success'
                                                             )
-                                                          }
                                                        document.getElementById('status-change-{{$purchase->id}}').submit();
+                                                          }
                                                     });
                                                     "
                                                 ><i class="fas fa-check" style="color:#fff;"></i></a>

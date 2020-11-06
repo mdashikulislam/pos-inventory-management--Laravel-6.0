@@ -77,8 +77,13 @@ class PurchaseController extends Controller
     public function statusChange($id, Request $request)
     {
         $purchase = Purchase::where('id',$id)->first();
-        $purchase->status = '1';
-        $purchase->save();
+        $product = Product::where('id',$purchase->product_id)->first();
+        $purchase_qty = ((float) $purchase->buying_qty)+($product->quantity);
+        $product->quantity = $purchase_qty;
+        if ($product->save()){
+            $purchase->status = '1';
+            $purchase->save();
+        }
         toast('Purchased Approve successfully','success');
         return redirect()->back();
 
@@ -91,5 +96,8 @@ class PurchaseController extends Controller
             ->with([
                 'purchases'=>$purchase
             ]);
+
+
+
     }
 }

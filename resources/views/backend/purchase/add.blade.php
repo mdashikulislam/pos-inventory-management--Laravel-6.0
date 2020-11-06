@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="col-md-4 form-group">
                                             <label for="supplier">Supplier Name</label>
-                                            <select name="supplier" id="supplier" class="form-control" style="@if($errors->has('usertype')) border-color:red; @endif">
+                                            <select name="supplier" id="supplier"  class="form-control"  style="@if($errors->has('usertype')) border-color:red; @endif">
                                                 <option value="">Select Supplier</option>
                                                 @foreach($suppliers as $supplier)
                                                     <option value="{{$supplier->id}}" >{{$supplier->name}}</option>
@@ -215,41 +215,7 @@
             }
         });
     </script>
-    <script>
-        $(function () {
-            $('#myForm').validate({
-                rules: {
-                    supplier:{
-                        required:true,
-                    },
-                    unit: {
-                        required: true,
 
-                    },
-                    category:{
-                        required: true,
-                    },
-                    name:{
-                        required: true,
-                    }
-                },
-                messages: {
-
-                },
-                errorElement: 'span',
-                errorPlacement: function (error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
-        });
-    </script>
     <script>
         $(function (){
             $(document).on('change','#supplier',function (){
@@ -325,8 +291,21 @@
     <script>
         $('.datepicker').datepicker({
             uiLibrary:'bootstrap4',
-            format:'yyyy-mm-dd'
+            format:'yyyy-mm-dd',
+
+        }).datepicker('setDate', new Date());
+    </script>
+    <script>
+        $(document).ready(function (){
+            $('#supplier').select2({
+                theme: 'bootstrap4'
+            });
+            $('#category').select2({
+                theme: 'bootstrap4'
+            });
+            $('#product').select2({
+                theme: 'bootstrap4'
+            });
         });
     </script>
-
 @endsection

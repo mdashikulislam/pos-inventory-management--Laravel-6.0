@@ -59,9 +59,14 @@
                                             <td>{{$product->categories->name}}</td>
                                             <td> {{$product->name}}</td>
                                             <td> {{$product->units->name}}</td>
+                                            @php
+                                                $purchase_count = \App\Purchase::where('product_id',$product->id)->count();
+                                            @endphp
                                             <td>
                                                 <a title="Edit" href="{{route('product.edit',['id'=>$product->id])}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                                @if($purchase_count < 1)
                                                 <a title="Delete" href="{{route('product.delete',['id'=>$product->id])}}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endforeach

@@ -134,5 +134,18 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function (){
+            $('#supplier').select2({
+                theme: 'bootstrap4'
+            });
+            $('#category').select2({
+                theme: 'bootstrap4'
+            });
+            $('#unit').select2({
+                theme: 'bootstrap4'
+            });
+        });
+    </script>
 
 @endsection

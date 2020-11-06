@@ -53,9 +53,14 @@
                                         <tr>
                                             <td>@if($loop->index + 1 <10){{'0'.($loop->index+1)}}@endif @if($loop->index + 1 > 9){{($loop->index+1)}}@endif</td>
                                             <td>{{$category->name}}</td>
+                                            @php
+                                                $category_count = \App\Product::where('category_id',$category->id)->count();
+                                            @endphp
                                             <td>
                                                 <a title="Edit" href="{{route('category.edit',['id'=>$category->id])}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                                @if($category_count < 1)
                                                 <a title="Delete" href="{{route('category.delete',['id'=>$category->id])}}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endforeach
