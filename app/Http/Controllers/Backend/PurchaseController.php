@@ -11,7 +11,7 @@ use App\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PurchaseController extends Controller
+class PurchaseController extends Controller implements ComponentCRUD
 {
     public function index()
     {

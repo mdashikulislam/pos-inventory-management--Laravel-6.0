@@ -42,7 +42,7 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
     });
 
     Route::prefix('supplier')->group(function (){
-        Route::get('/view','SupplierController@view')->name('supplier.view');
+        Route::get('/view','SupplierController@index')->name('supplier.view');
         Route::get('/add','SupplierController@add')->name('supplier.add');
         Route::post('/store','SupplierController@store')->name('supplier.store');
         Route::get('/edit/{id}','SupplierController@edit')->name('supplier.edit');
@@ -97,7 +97,14 @@ Route::namespace('Backend')->middleware('auth')->group(function (){
         Route::post('/approve/status/{id}','PurchaseController@statusChange')->name('purchase.status.approve');
         Route::get('/approve','PurchaseController@approvePurchase')->name('purchase.approve');
     });
-
+    Route::prefix('invoice')->group(function (){
+        Route::get('/view','InvoiceController@index')->name('invoice.view');
+        Route::get('/add','InvoiceController@add')->name('invoice.add');
+        Route::post('/store','InvoiceController@store')->name('invoice.store');
+        Route::get('/edit/{id}','InvoiceController@edit')->name('invoice.edit');
+        Route::post('/update/{id}','InvoiceController@update')->name('invoice.update');
+        Route::get('/delete/{id}','InvoiceController@delete')->name('invoice.delete');
+    });
     Route::prefix('join-table')->group(function (){
         Route::get('/get-supplier','DefaultController@getSupplier')->name('supplier.get');
         Route::get('/get-category','DefaultController@getCategory')->name('category.get');

@@ -8,7 +8,7 @@ use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CustomerController extends Controller
+class CustomerController extends Controller implements ComponentCRUD
 {
     public function index()
     {

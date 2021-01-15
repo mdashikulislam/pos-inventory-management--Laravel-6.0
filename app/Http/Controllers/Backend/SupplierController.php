@@ -8,10 +8,10 @@ use App\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SupplierController extends Controller
+class SupplierController extends Controller implements ComponentCRUD
 {
 
-    public function view()
+    public function index()
     {
         $supplier = Supplier::all();
         return view('backend.supplier.view')->with([

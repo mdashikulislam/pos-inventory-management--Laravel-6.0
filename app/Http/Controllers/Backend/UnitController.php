@@ -6,7 +6,7 @@ use App\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UnitController extends Controller
+class UnitController extends Controller implements ComponentCRUD
 {
     public function index()
     {
